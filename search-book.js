@@ -1,59 +1,34 @@
 const GOOGLEBOOKS_URL = "https://www.googleapis.com/books/v1/volumes?q=";
-// below is what will be entered+from+the+search+box
-searchItem = document.getElementById("searchInput").value;
-// let searchItem = "quilting";
 const searchBtn = document.getElementById("googleSearch");
 
-const accessSearchResults = async () => {
-  const searchResponse = await fetch(`${GOOGLEBOOKS_URL}${searchItem}`);
-  console.log(searchResponse);
+const accessSearchResults = async (searchInput) => {
+  const searchResponse = await fetch(`${GOOGLEBOOKS_URL}${searchInput}`);
   const searchData = await searchResponse.json();
-  let resultArray = searchData.items;
-  console.log(resultArray);
-
-  const getVolumeInfo = async (array) => {
-    let volumeInfo = await array.volumeInfo;
-    console.log(volumeInfo);
-  };
-
-  getVolumeInfo(resultArray);
+  return searchData.items;
 };
 
-searchBtn.addEventListener("click", async () => {
+searchBtn.addEventListener("click", async (event) => {
   console.log("Search Button Pressed");
+  const userInput = document.querySelector("#searchInput").value;
 
-  await accessSearchResults();
-  searchItem.value = "";
-  // take whatever is in input box
-  // split it using +
-  // let searchItem = splitSearchString
+  const booksResults = await accessSearchResults(userInput);
+  const listOfBooks = booksResults.map((book) => {
+    console.log(book.volumeInfo.title);
+    const titlePara = document.createElement("p");
+    const titleText = document.createTextNode(`${book.volumeInfo.title}`);
+    titlePara.appendChild(titleText);
+    return titlePara;
+  });
+
+  // For each book we want to create a div
+  // Inside each div we want a title, an image, a para
+  // Append each of the book div to the book container
+
+  const bookContainer = document.querySelector(".bookContainer__search");
+
+  listOfBooks.forEach((para) => {
+    bookContainer.appendChild(para);
+  });
+
+  console.log(listOfBooks);
 });
-
-// const getTitle = async (resultArray) => {
-//   let title = await resultArray{volumeInfo.author};
-//   console.log(title);
-// };
-
-// getTitle();
-
-// const renderTitle () => {
-
-// }
-
-// const renderAuthor () => {
-
-// }
-
-// const renderDescription () => {
-
-// }
-
-// const renderImage () => {
-
-// }
-
-// from volumeInfo
-// return title
-// return imageLinks > thumbnail
-// return authors
-// return description

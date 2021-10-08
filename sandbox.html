@@ -1,0 +1,45 @@
+<!-- <html>
+  <head>
+    <title>Books API Example</title>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script>
+      function handleResponse(response) {
+        for (var i = 0; i < response.items.length; i++) {
+          var item = response.items[i];
+          // in production code, item.text should have the HTML entities escaped.
+          document.getElementById("content").innerHTML +=
+            "<br>" + item.volumeInfo.title;
+        }
+      }
+    </script>
+    <script src="https://www.googleapis.com/books/v1/volumes?q=the+body+keeps&callback=handleResponse"></script>
+  </body>
+</html> -->
+
+<!-- GET
+https://www.googleapis.com/books/v1/volumes?q=search+terms -->
+
+<!-- 
+Here is an example of searching for Daniel Keyes' "Flowers for Algernon":
+GET https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey 
+-->
+
+<!-- 
+intitle: Returns results where the text following this keyword is found in the title.
+inauthor: Returns results where the text following this keyword is found in the author.
+subject: Returns results where the text following this keyword is listed in the category list of the volume. 
+-->
+
+<!-- Default returns 10 books, and shows most relevant first
+maxResults change to 3 or 5 -->
+
+<!-- in returned data: imageLinks, then choose size (screenshot + bookmark of sizes) -->
+
+<!-- 
+volumeInfo is an OBJECT
+volumeInfo.title
+volumeInfo.authors[]
+volumeInfo.description 
+-->

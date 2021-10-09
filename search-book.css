@@ -1,0 +1,11 @@
+.bookDiv {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 500px;
+  border: solid 1px black;
+}
+.bookDiv__image {
+  width: 150px;
+  height: 220px;
+}

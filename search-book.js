@@ -30,16 +30,31 @@ searchBtn.addEventListener("click", async (event) => {
 
     const bookDiv = document.createElement("div");
     bookDiv.classList.add("bookDiv");
-    let bookDivContent = document.createTextNode(
-      `Title: ${bookObject.title} 
-      Author(s):${bookObject.author}
-      Description: ${bookObject.description}`
-    );
-    bookDiv.appendChild(bookDivContent);
 
-    let bookImage = document.createElement("img");
+    const title = document.createTextNode(`${bookObject.title}`);
+    bookDiv.appendChild(title);
+    // title.classList.add("bookDiv__title");
+
+    // authors is an array
+    const authors = document.createTextNode(` by ${bookObject.author}`);
+    bookDiv.appendChild(authors);
+    // authors.classList.add("bookDiv__authors");
+
+    // const bookDivContent = document.createTextNode(
+    //   `Title: ${bookObject.title}
+    //   Author(s):${bookObject.author}
+    //   Description: ${bookObject.description}`
+    // );
+    // bookDiv.appendChild(bookDivContent);
+
+    const bookImage = document.createElement("img");
+    bookImage.classList.add("bookDiv__image");
     bookImage.src = bookObject.img;
     bookDiv.appendChild(bookImage);
+
+    const description = document.createTextNode(`${bookObject.description}`);
+    bookDiv.appendChild(description);
+    // description.classList.add("bookDiv__description");
 
     return bookDiv;
   });

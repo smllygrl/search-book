@@ -1,5 +1,6 @@
 const GOOGLEBOOKS_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 const searchBtn = document.getElementById("googleSearch");
+const clearBtn = document.getElementById("clearAll");
 
 const accessSearchResults = async (searchInput) => {
   const searchResponse = await fetch(`${GOOGLEBOOKS_URL}${searchInput}`);
@@ -14,7 +15,6 @@ searchBtn.addEventListener("click", async (event) => {
 
   // bookResults is an array
   const booksResults = await accessSearchResults(userInput);
-  console.log(booksResults[0].volumeInfo);
 
   // listofBooks is an array
   const listOfBooks = booksResults.map((book) => {
@@ -24,30 +24,22 @@ searchBtn.addEventListener("click", async (event) => {
       title: book.volumeInfo.title,
       author: book.volumeInfo.authors,
       description: book.volumeInfo.description,
-      img: book.volumeInfo.imageLinks.thumbnail,
+      img: book.volumeInfo.imageLinks?.thumbnail,
     };
     console.log(bookObject);
-    // let bookObjectArray = bookObject;
-    // console.log(bookObjectArray);
 
     const bookDiv = document.createElement("div");
-    const bookDivContent = document.createTextNode(
+    bookDiv.classList.add("bookDiv");
+    let bookDivContent = document.createTextNode(
       `Title: ${bookObject.title} 
       Author(s):${bookObject.author}
       Description: ${bookObject.description}`
     );
     bookDiv.appendChild(bookDivContent);
 
-    const bookImage = document.createElement("img");
+    let bookImage = document.createElement("img");
     bookImage.src = bookObject.img;
-
     bookDiv.appendChild(bookImage);
-
-    // const titlePara = document.createElement("p");
-    // const titleText = document.createTextNode(
-    //   `Title: ${book.volumeInfo.title}`
-    // );
-    // titlePara.appendChild(titleText);
 
     return bookDiv;
   });
@@ -58,17 +50,15 @@ searchBtn.addEventListener("click", async (event) => {
 
   const bookContainer = document.querySelector(".bookContainer__results");
 
-  listOfBooks.forEach((para) => {
-    bookContainer.appendChild(para);
+  listOfBooks.forEach((div) => {
+    bookContainer.appendChild(div);
   });
 
   console.log(listOfBooks);
 });
 
-// const authorPara = document.createElement("p");
-// const authorText = document.createTextNode(
-//   `Authors: ${book.volumeInfo.authors}`
-// );
-// authorPara.appendChild(authorText);
-
-// console.log(`${book.volumeInfo.authors}`);
+clearBtn.addEventListener("click", () => {
+  console.log("Clear had been pressed");
+  document.querySelector("#searchInput").value = null;
+  location.reload();
+});

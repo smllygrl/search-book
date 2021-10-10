@@ -8,6 +8,12 @@ const accessSearchResults = async (searchInput) => {
   return searchData.items;
 };
 
+clearBtn.addEventListener("click", () => {
+  console.log("Clear had been pressed");
+  document.querySelector("#searchInput").value = null;
+  location.reload();
+});
+
 searchBtn.addEventListener("click", async (event) => {
   console.log("Search Button Pressed");
 
@@ -18,43 +24,40 @@ searchBtn.addEventListener("click", async (event) => {
 
   // listofBooks is an array
   const listOfBooks = booksResults.map((book) => {
-    console.log(book.volumeInfo);
-
     const bookObject = {
       title: book.volumeInfo.title,
       author: book.volumeInfo.authors,
       description: book.volumeInfo.description,
-      img: book.volumeInfo.imageLinks?.thumbnail,
+      img: book.volumeInfo.imageLinks?.smallThumbnail,
     };
-    console.log(bookObject);
 
     const bookDiv = document.createElement("div");
     bookDiv.classList.add("bookDiv");
 
+    const bookDivTitle = document.createElement("h2");
     const title = document.createTextNode(`${bookObject.title}`);
-    bookDiv.appendChild(title);
-    // title.classList.add("bookDiv__title");
-
-    // authors is an array
-    const authors = document.createTextNode(` by ${bookObject.author}`);
-    bookDiv.appendChild(authors);
-    // authors.classList.add("bookDiv__authors");
-
-    // const bookDivContent = document.createTextNode(
-    //   `Title: ${bookObject.title}
-    //   Author(s):${bookObject.author}
-    //   Description: ${bookObject.description}`
-    // );
-    // bookDiv.appendChild(bookDivContent);
+    bookDivTitle.appendChild(title);
+    bookDiv.appendChild(bookDivTitle);
+    bookDivTitle.classList.add("bookDiv__title");
 
     const bookImage = document.createElement("img");
     bookImage.classList.add("bookDiv__image");
     bookImage.src = bookObject.img;
     bookDiv.appendChild(bookImage);
 
+    // authors is an array
+    const bookDivAuthors = document.createElement("h3");
+    const authors = document.createTextNode(` by ${bookObject.author}`);
+    bookDivAuthors.appendChild(authors);
+    bookDiv.appendChild(bookDivAuthors);
+    bookDivAuthors.classList.add("bookDiv__authors");
+
+    const bookDivDes = document.createElement("p");
     const description = document.createTextNode(`${bookObject.description}`);
-    bookDiv.appendChild(description);
-    // description.classList.add("bookDiv__description");
+    bookDivDes.appendChild(description);
+    bookDiv.appendChild(bookDivDes);
+    bookDivDes.classList.add("bookDiv__des");
+    console.log(typeof bookDivDes);
 
     return bookDiv;
   });
@@ -70,10 +73,4 @@ searchBtn.addEventListener("click", async (event) => {
   });
 
   console.log(listOfBooks);
-});
-
-clearBtn.addEventListener("click", () => {
-  console.log("Clear had been pressed");
-  document.querySelector("#searchInput").value = null;
-  location.reload();
 });

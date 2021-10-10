@@ -4,26 +4,38 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="search-book.css" />
     <title>Find a Book!</title>
   </head>
   <body>
-    <header>
-      <h1>This is my heading!</h1>
-      <p>This is introducing you to the page!</p>
-    </header>
+    <div class="container">
+      <header class="heading">
+        <p class="heading__text">A SIMPLE SEARCH ENGINE</p>
+      </header>
 
-    <div class="searchContainer">
-      <input type="text" id="searchInput" placeholder="Write in here" />
-    </div>
+      <p class="howto">Enter a single word above, or+type+like+this</p>
 
-    <button id="googleSearch">Search it baby!</button>
-    <button id="clearAll">Clear all</button>
+      <div class="searchContainer">
+        <input
+          class="searchContainer__input"
+          type="text"
+          id="searchInput"
+          placeholder="Write in here"
+        />
+      </div>
 
-    <br />
+      <div class="search">
+        <button class="search__btn" id="googleSearch">SEARCH</button>
+      </div>
 
-    <section class="bookContainer">
+      <div class="clear">
+        <button class="clear__btn" id="clearAll">CLEAR</button>
+      </div>
+
+      <br />
+
       <div class="bookContainer__results"></div>
-    </section>
+    </div>
   </body>
   <script src="search-book.js"></script>
 </html>
